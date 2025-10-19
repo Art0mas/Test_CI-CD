@@ -48,3 +48,28 @@ jobs:
         with:
           name: junit-report
           path: report.xml
+
+build:
+    name: Build Package
+    runs-on: ubuntu-latest
+    needs: [test] 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install build tools
+        run: pip install build
+
+      - name: Build Python package
+        run: python -m build --outdir dist/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-build
+          path: dist/
