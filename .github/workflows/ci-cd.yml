@@ -49,10 +49,10 @@ jobs:
           name: junit-report
           path: report.xml
 
-build:
+  build:
     name: Build Package
     runs-on: ubuntu-latest
-    needs: [test] 
+    needs: [test]   # виконується після успішного тестування
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
